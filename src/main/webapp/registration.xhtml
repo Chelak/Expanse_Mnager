@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <div align="center">
+        <h:form id="registrationForm">
+            <p:panel header="Registration" style="width: 360px;">
+
+                <h:panelGrid id="registrationPanel" columns="2">
+                    <p:outputLabel for="firstName" value="First Name:" />
+                    <p:inputText id="firstName" value="#{userController.user.firstName}" required="true" label="Firstname">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:outputLabel for="lastName" value="Last Name:" />
+                    <p:inputText id="lastName" value="#{userController.user.lastName}" required="true" label="Lastname">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:outputLabel for="email" value="Email:" />
+                    <p:inputText id="email" value="#{userController.user.email}" required="true" label="Email">
+                        <f:validateLength minimum="2" />
+                    </p:inputText>
+                    <p:outputLabel for="password" value="Password:" />
+                    <p:inputText id="password" value="#{userController.user.password}" required="true" label="password">
+                        <f:validateLength minimum="5" />
+                    </p:inputText>
+
+                </h:panelGrid>
+                <h:commandButton value="Save" update="registrationForm" actionListener="#{userController.register}" icon="ui-icon-check" />
+                <h:commandButton type="reset" value="Reset" />
+            </p:panel>
+        </h:form>
+    </div>
+</h:body>
+</html>

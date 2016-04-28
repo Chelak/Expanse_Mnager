@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:component-scan base-package="com.app.spring" />
+    <context:annotation-config/>
+    <context:spring-configured/>
+    <!-- Data source-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://37.140.192.67:3306/u0072197_expense" />
+        <property name="username" value="u0072197_expense" />
+        <property name="password" value="nVubQWh0" />
+    </bean>
+    <!-- Sesion factory init and set hibernate propriety's-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan">
+            <list>
+                <value>com.app.spring.entity</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- transaction manager  -->
+    <bean id="transactionManager" name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    <bean id="userDAO" class="com.app.spring.dao.user.UserDaoImpl"/>
+    <bean id="userService" class="com.app.spring.service.user.UserServiceImpl"/>
+    <bean id ="accountDAO" class="com.app.spring.dao.account.AccountDaoImpl"/>
+    <bean id="transactionDAO" class="com.app.spring.dao.transaction.TransactionDaoImpl"/>
+    <bean id="incomeCategoryDAO" class="com.app.spring.dao.incomeCategory.IncomeCategoryDaoImpl"/>
+    <bean id="incomeDAO" class="com.app.spring.dao.income.IncomeDaoImpl"/>
+    <bean id="expenseDAO" class="com.app.spring.dao.expanse.ExpenseDaoImpl"/>
+    <bean id="expenseCategoryDAO" class="com.app.spring.dao.expenseCategory.ExpenseCategoryDaoImpl"/>
+
+</beans>
